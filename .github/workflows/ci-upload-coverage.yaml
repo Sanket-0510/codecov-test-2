@@ -15,6 +15,12 @@ jobs:
       - name: Install lcov
         run: sudo apt-get update && sudo apt-get install -y lcov
 
+      - name: Debug Files
+        run: |
+          ls -l # List files in the current directory
+          cat coverage-about.info # Output the contents of coverage-about.info
+          cat coverage-contact.info # Output the contents of coverage-contact.info
+
       - name: Combine coverage data
         run: |
           lcov -a coverage-about.info -a coverage-contact.info -o coverage-final.info
