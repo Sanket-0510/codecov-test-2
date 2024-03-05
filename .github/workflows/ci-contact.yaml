@@ -1,4 +1,4 @@
-name: CI
+name: CI - Contact Page Test
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  test_and_report_coverage:
+  test_contact:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,11 +20,8 @@ jobs:
       - name: Install dependencies
         run: pip install Flask pytest pytest-cov codecov
 
-      - name: Run tests and coverage
-        run: |
-          pytest --cov=app test_app.py
+      - name: Run tests - Contact Page
+        run: pytest --cov=app test_contact.py
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Save coverage data
+        run: mv .coverage coverage-contact.info

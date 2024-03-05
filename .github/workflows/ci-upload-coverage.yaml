@@ -1,0 +1,23 @@
+name: CI - Upload Coverage
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  upload_coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Combine coverage data
+        run: |
+          lcov -a coverage-about.info -a coverage-contact.info -o coverage-final.info
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage-final.info
